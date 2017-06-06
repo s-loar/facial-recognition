@@ -1,4 +1,5 @@
 var imgGallery;
+var resizeTimer;
 var imgList = [
   "images/17.jpg",
   "images/1.jpg",
@@ -70,7 +71,24 @@ function trackAllImages(imageArray) {
   });
 };
 
+function retrackAllImages(imageArray) {
+  imageArray.forEach(function(image) {
+    image.dispatchEvent(new Event("load"));
+  });
+}
+
 window.onload = function() {
   imgGallery = createGallery( imgList );
   trackAllImages(imgGallery);
 };
+
+window.onresize = function()
+{
+  var features = document.getElementsByClassName("feature");
+  while(features[0]) {
+    features[0].parentNode.removeChild(features[0]);
+  }
+
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout("retrackAllImages(imgGallery);", 500);
+}
