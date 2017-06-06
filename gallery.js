@@ -1,5 +1,6 @@
 var imgGallery;
 var imgList = [
+  "images/17.jpg",
   "images/1.jpg",
   "images/2.jpg",
   "images/3.jpg",
@@ -37,6 +38,39 @@ function createGallery(images) {
   return imageobjects;
 };
 
+function plotBox (element, x, y, w, h) {
+  var box = document.createElement('div');
+  element.parentNode.appendChild(box);
+  box.classList.add('feature');
+  box.style.width = w + 'px';
+  box.style.height = h + 'px';
+  box.style.left = (element.offsetLeft + x) + 'px';
+  box.style.top = (element.offsetTop + y) + 'px';
+};
+
+function trackImage(image) {
+  image.addEventListener("load", function() {
+    var tracker = new tracking.ObjectTracker(["face"]);
+    tracker.setStepSize(1.7);
+    tracking.track(image,tracker);
+
+    /* Handle track event to draw bounding box for feature */
+    tracker.on("track", function(event) {
+      event.data.forEach(function(box) {
+        window.plotBox(image, box.x, box.y, box.width, box.height);
+      });
+    });
+
+  });
+}
+
+function trackAllImages(imageArray) {
+  imageArray.forEach(function(image) {
+    trackImage(image);
+  });
+};
+
 window.onload = function() {
   imgGallery = createGallery( imgList );
-}
+  trackAllImages(imgGallery);
+};
