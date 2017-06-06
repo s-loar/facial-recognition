@@ -1,0 +1,41 @@
+.gallery-title {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  text-align: center;
+  font-size: 5vw;
+    font-family: "Trebuchet MS", sans-serif;
+    color: rgb(47,79,79);
+}
+
+img {
+  width: calc(100%);
+}
+
+.feature {
+  border: 3px solid rgb(255,255,255);
+  position: absolute;
+}
+
+.image-container {
+  display: inline-block;
+  margin-bottom: 8px;
+  margin-right: 8px;
+  width: calc(20% - 8px);
+
+}
+
+@media screen and (max-width: 70em) {
+  .image-container {
+    width: calc(25% - 8px);
+  }
+}
+
+@media screen and (max-width: 30em) {
+  .image-container {
+    width: calc(50% - 8px);
+  }
+}
+
+body {
+  background-color: rgb(230, 226, 229);
+}
